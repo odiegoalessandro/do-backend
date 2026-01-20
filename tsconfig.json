@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"strict": true,
+		"target": "es2023",
+		"moduleDetection": "force",
+		"module": "ESNext",
+		"resolveJsonModule": true,
+		"moduleResolution": "node",
+		"allowJs": true,
+		"esModuleInterop": true,
+		"isolatedModules": true,
+	},
+}
