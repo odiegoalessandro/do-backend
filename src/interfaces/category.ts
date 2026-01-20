@@ -1,21 +1,26 @@
-import { Todo } from "./todo"
+import { z } from 'zod';
+import { todoSchema } from './todo';
 
-export interface Category {
-  id: string
-  name: string
-  color: string
-  userId: string
-  createdAt: string
-  updatedAt: string
-  todos?: Todo[]
-}
+export const categorySchema = z.object({
+  id: z.string(),
+  name: z.string().min(1),
+  color: z.string().optional(),
+  userId: z.string(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+  todos: z.array(todoSchema).optional(),
+});
 
-export interface CreateCategoryData {
-  name: string
-  color?: string
-}
+export const createCategorySchema = z.object({
+  name: z.string().min(1),
+  color: z.string().optional(),
+});
 
-export interface UpdateCategoryData {
-  name?: string
-  color?: string
-}
+export const updateCategorySchema = z.object({
+  name: z.string().min(1).optional(),
+  color: z.string().optional(),
+});
+
+export type Category = z.infer<typeof categorySchema>;
+export type CreateCategoryData = z.infer<typeof createCategorySchema>;
+export type UpdateCategoryData = z.infer<typeof updateCategorySchema>;
