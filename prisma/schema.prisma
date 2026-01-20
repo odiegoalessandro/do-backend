@@ -32,6 +32,7 @@ model Category {
   userId    String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  color     String
 
   user User @relation(fields: [userId], references: [id])
   todos Todo[]
