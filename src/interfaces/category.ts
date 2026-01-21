@@ -14,6 +14,7 @@ export const categorySchema = z.object({
 export const createCategorySchema = z.object({
   name: z.string().min(1),
   color: z.string().optional(),
+  userId: z.uuid(),
 });
 
 export const updateCategorySchema = z.object({
