@@ -7,4 +7,6 @@ export const userRouter = Router();
 
 const userController = new UserController();
 
-userRouter.post("/user", validate(registerCredentialsSchema), userController.createUser);
+userRouter.post("/user", validate(registerCredentialsSchema), userController.create);
+userRouter.delete("/user/:id", userController.delete);
+userRouter.put("/user/:id", userController.update);
