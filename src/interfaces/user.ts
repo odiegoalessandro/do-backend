@@ -7,6 +7,9 @@ export const userSchema = z.object({
   id: z.string(),
   email: z.string().regex(emailRegex, { message: 'Email inválido' }),
   password: z.string(),
+  name: z.string(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
 });
 
 export const userWithoutPasswordSchema = userSchema.omit({
