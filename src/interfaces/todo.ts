@@ -13,6 +13,7 @@ export const todoSchema = z.object({
 export const createTodoSchema = z.object({
   description: z.string().min(1),
   categoryId: z.string(),
+  userId: z.uuid(),
 });
 
 export const updateTodoSchema = z.object({
