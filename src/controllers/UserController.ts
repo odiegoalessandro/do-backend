@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { RegisterCredentials } from "../interfaces/user";
 import { CreateUserService } from "../services/CreateUserService";
 import { DeleteUserService } from "../services/DeleteUserService";
@@ -11,7 +11,7 @@ export class UserController {
     throw new Error("Method not implemented.");
   }
 
-   create = async (req: Request, res: Response) => {
+   create = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const registerUser: RegisterCredentials = {
         email: req.body.email,
@@ -23,11 +23,11 @@ export class UserController {
 
       return res.status(201).json(newUser);
     } catch (error) {
-      throw error;
+      next(error);
     }
   }
 
-  public async delete(req: Request, res: Response) {
+  public async delete(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = req.params.id;
 
@@ -39,15 +39,15 @@ export class UserController {
 
       return res.status(204).send();
     } catch (error) {
-      throw error;
+      next(error);
     }
   }
 
-  public async update(req: Request, res: Response) {
+  public async update(req: Request, res: Response, next: NextFunction) {
     try {
       throw new Error("Method not implemented.");
     } catch (error) {
-      throw error;
+      next(error);
     }
   }
 }

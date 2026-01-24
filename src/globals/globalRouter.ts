@@ -6,10 +6,11 @@ import { userRouter } from "../routers/UserRouter";
 
 const globalRouter = Router();
 
-globalRouter.use(errorHandler);
 
 globalRouter.use('/user', userRouter);
 globalRouter.use('/category', categoryRouter);
 globalRouter.use('/todo', todoRouter);
+
+globalRouter.use(errorHandler);
 
 export { globalRouter };
