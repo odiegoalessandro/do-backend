@@ -1,16 +1,19 @@
 {
-	"compilerOptions": {
-		"strict": true,
-		"target": "es2023",
-		"moduleDetection": "force",
-		"module": "ESNext",
-		"resolveJsonModule": true,
-		"moduleResolution": "node",
-		"allowJs": true,
-		"esModuleInterop": true,
-		"isolatedModules": true,
-		"outDir": "dist",
-	},
-	"include": ["src/**/*"],
-	"exclude": ["node_modules"]
+  "compilerOptions": {
+    "target": "es6",
+    "lib": ["es6", "dom", "es2017"],
+    "module": "commonjs",
+    "outDir": "./build",
+    "rootDir": "./",
+    "strict": false,
+    "noImplicitAny": false,
+    "esModuleInterop": true,
+    "allowJs": true,
+    "declaration": false,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "typeRoots": ["types", "./node_modules/@types"]
+  },
+  "include": ["src/**/*", "swagger-output.json"],
+	"exclude": ["node_modules", "./jest.config.js", "./build/*"]
 }

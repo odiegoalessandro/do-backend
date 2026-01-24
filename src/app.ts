@@ -1,8 +1,8 @@
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
-import swaggerUi from 'swagger-ui-express';
-import swaggerFile from '../swagger-output.json' assert { type: 'json' };
+// import swaggerFile from '../swagger-output.';
+
 
 export const app = express()
 
@@ -18,8 +18,8 @@ app.use(cors({
   credentials: true
 }))
 
-if (process.env.NODE_ENV !== 'production') {
-  app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+// }
 
 app.use(express.urlencoded({ extended: true }))
