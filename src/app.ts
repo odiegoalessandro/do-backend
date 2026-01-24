@@ -6,14 +6,20 @@ import swaggerFile from '../swagger-output.json' assert { type: 'json' };
 
 export const app = express()
 
-dotenv.config({ path: process.env.ENVIRONMENT === 'production' ? '.env.prod' : '.env' }) 
+if (process.env.ENVIRONMENT !== 'production'){
+  dotenv.config({ path: '.env' }) 
+
+}
 
 app.use(express.json())
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: process.env.CLIENT_URL || 'http://localhost:3000',
   credentials: true
 }))
 
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+if (process.env.NODE_ENV !== 'production') {
+  app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+}
+
 app.use(express.urlencoded({ extended: true }))

@@ -8,7 +8,9 @@
     "start": "tsx src/index.ts",
     "dev": "tsx src/config/swagger.ts && tsx watch src/index.ts",
     "db:deploy": "npx prisma migrate deploy && npx prisma generate",
-    "swagger": "tsx src/config/swagger.ts"
+    "swagger": "tsx src/config/swagger.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
   },
   "author": "",
   "license": "ISC",
