@@ -1,11 +1,87 @@
-import { Router } from "express";
-import { TodoController } from "../controllers/TodoController";
+import { Request, Response, Router } from "express"
+import { TodoController } from "../controllers/TodoController"
 
-const todoController = new TodoController();
+export const todoRouter = Router()
+const controller = new TodoController()
 
-export const todoRouter = Router();
+todoRouter.post("/", (req: Request, res: Response) => {
+  /*
+    #swagger.tags = ['Todo']
+    #swagger.summary = 'Criar todo'
+    #swagger.requestBody = {
+      required: true,
+      content: {
+        "application/json": {
+          schema: { $ref: "#/components/schemas/CreateTodoInput" }
+        }
+      }
+    }
+    #swagger.responses[201] = {
+      schema: { $ref: "#/components/schemas/Todo" }
+    }
+  */
+  return controller.create(req, res)
+})
 
-todoRouter.post("/", todoController.create);
-todoRouter.put("/:id", todoController.update);
-todoRouter.delete("/:id", todoController.delete);
-todoRouter.get("/category/:categoryId/user/:userId", todoController.get);
+todoRouter.put("/:id", (req: Request, res: Response) => {
+  /*
+    #swagger.tags = ['Todo']
+    #swagger.summary = 'Atualizar todo'
+    #swagger.parameters['id'] = {
+      in: 'path',
+      required: true,
+      type: 'string'
+    }
+    #swagger.requestBody = {
+      content: {
+        "application/json": {
+          schema: { $ref: "#/components/schemas/UpdateTodoInput" }
+        }
+      }
+    }
+    #swagger.responses[200] = {
+      schema: { $ref: "#/components/schemas/Todo" }
+    }
+  */
+  return controller.update(req, res)
+})
+
+todoRouter.delete("/:id", (req: Request, res: Response) => {
+  /*
+    #swagger.tags = ['Todo']
+    #swagger.summary = 'Deletar todo'
+    #swagger.parameters['id'] = {
+      in: 'path',
+      required: true,
+      type: 'string'
+    }
+    #swagger.responses[204] = {
+      description: 'Sem conteúdo'
+    }
+  */
+  return controller.delete(req, res)
+})
+
+todoRouter.get("/category/:categoryId/user/:userId", (req: Request, res: Response) => {
+  /*
+    #swagger.tags = ['Todo']
+    #swagger.summary = 'Listar todos por categoria e usuário'
+    #swagger.parameters['categoryId'] = {
+      in: 'path',
+      required: true,
+      type: 'string'
+    }
+    #swagger.parameters['userId'] = {
+      in: 'path',
+      required: true,
+      type: 'string'
+    }
+    #swagger.responses[200] = {
+      schema: {
+        type: 'array',
+        items: { $ref: "#/components/schemas/Todo" }
+      }
+    }
+  */
+  return controller.get(req, res)
+})
