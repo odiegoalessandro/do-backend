@@ -90,6 +90,36 @@ export const doc = {
           name: { type: 'string' },
           color: { type: 'string' }
         }
+      },
+      RegisterInput: {
+        type: 'object',
+        required: ['email', 'password', 'name'],
+        properties: {
+          email: { type: 'string', example: 'user@email.com' },
+          password: { type: 'string', example: 'StrongPassword123!' },
+          name: { type: 'string', example: 'John Doe' }
+        }
+      },
+      LoginInput: {
+        type: 'object',
+        required: ['email', 'password'],
+        properties: {
+          email: { type: 'string', example: 'user@email.com' },
+          password: { type: 'string', example: 'StrongPassword123!' }
+        }
+      },
+      TokenPair: {
+        type: 'object',
+        properties: {
+          accessToken: {
+            type: 'string',
+            example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+          },
+          refreshToken: {
+            type: 'string',
+            example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+          }
+        }
       }
     }
   }
