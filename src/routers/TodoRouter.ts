@@ -1,10 +1,10 @@
-import { Request, Response, Router } from "express"
+import { NextFunction, Request, Response, Router } from "express"
 import { TodoController } from "../controllers/TodoController"
 
 export const todoRouter = Router()
 const controller = new TodoController()
 
-todoRouter.post("/", (req: Request, res: Response) => {
+todoRouter.post("/", (req: Request, res: Response, next: NextFunction) => {
   /*
     #swagger.tags = ['Todo']
     #swagger.summary = 'Criar todo'
@@ -20,10 +20,10 @@ todoRouter.post("/", (req: Request, res: Response) => {
       schema: { $ref: "#/components/schemas/Todo" }
     }
   */
-  return controller.create(req, res)
+  return controller.create(req, res, next)
 })
 
-todoRouter.put("/:id", (req: Request, res: Response) => {
+todoRouter.put("/:id", (req: Request, res: Response, next: NextFunction) => {
   /*
     #swagger.tags = ['Todo']
     #swagger.summary = 'Atualizar todo'
@@ -43,10 +43,10 @@ todoRouter.put("/:id", (req: Request, res: Response) => {
       schema: { $ref: "#/components/schemas/Todo" }
     }
   */
-  return controller.update(req, res)
+  return controller.update(req, res, next)
 })
 
-todoRouter.delete("/:id", (req: Request, res: Response) => {
+todoRouter.delete("/:id", (req: Request, res: Response, next: NextFunction) => {
   /*
     #swagger.tags = ['Todo']
     #swagger.summary = 'Deletar todo'
@@ -59,10 +59,10 @@ todoRouter.delete("/:id", (req: Request, res: Response) => {
       description: 'Sem conteúdo'
     }
   */
-  return controller.delete(req, res)
+  return controller.delete(req, res, next)
 })
 
-todoRouter.get("/category/:categoryId/user/:userId", (req: Request, res: Response) => {
+todoRouter.get("/category/:categoryId/user/:userId", (req: Request, res: Response, next: NextFunction) => {
   /*
     #swagger.tags = ['Todo']
     #swagger.summary = 'Listar todos por categoria e usuário'
@@ -83,5 +83,5 @@ todoRouter.get("/category/:categoryId/user/:userId", (req: Request, res: Respons
       }
     }
   */
-  return controller.get(req, res)
+  return controller.get(req, res, next)
 })

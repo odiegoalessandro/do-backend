@@ -1,10 +1,10 @@
-import { Request, Response, Router } from 'express'
+import { NextFunction, Request, Response, Router } from 'express'
 import { CategoryController } from '../controllers/CategoryController'
 
 export const categoryRouter = Router()
 const controller = new CategoryController()
 
-categoryRouter.post('/categories', (req: Request, res: Response) => {
+categoryRouter.post('/categories', (req: Request, res: Response, next: NextFunction) => {
   /*
     #swagger.tags = ['Category']
     #swagger.summary = 'Criar categoria'
@@ -20,10 +20,10 @@ categoryRouter.post('/categories', (req: Request, res: Response) => {
       schema: { $ref: "#/components/schemas/Category" }
     }
   */
-  return controller.create(req, res)
+  return controller.create(req, res, next)
 })
 
-categoryRouter.get('/categories/:id', (req: Request, res: Response) => {
+categoryRouter.get('/categories/:id', (req: Request, res: Response, next: NextFunction) => {
   /*
     #swagger.tags = ['Category']
     #swagger.summary = 'Buscar categoria'
@@ -36,10 +36,10 @@ categoryRouter.get('/categories/:id', (req: Request, res: Response) => {
       schema: { $ref: "#/components/schemas/Category" }
     }
   */
-  return controller.get(req, res)
+  return controller.get(req, res, next)
 })
 
-categoryRouter.put('/categories/:id', (req: Request, res: Response) => {
+categoryRouter.put('/categories/:id', (req: Request, res: Response, next: NextFunction) => {
   /*
     #swagger.tags = ['Category']
     #swagger.summary = 'Atualizar categoria'
@@ -59,10 +59,10 @@ categoryRouter.put('/categories/:id', (req: Request, res: Response) => {
       schema: { $ref: "#/components/schemas/Category" }
     }
   */
-  return controller.update(req, res)
+  return controller.update(req, res, next)
 })
 
-categoryRouter.delete('/categories/:id', (req: Request, res: Response) => {
+categoryRouter.delete('/categories/:id', (req: Request, res: Response, next: NextFunction) => {
   /*
     #swagger.tags = ['Category']
     #swagger.summary = 'Deletar categoria'
@@ -75,5 +75,5 @@ categoryRouter.delete('/categories/:id', (req: Request, res: Response) => {
       description: 'Sem conteúdo'
     }
   */
-  return controller.delete(req, res)
+  return controller.delete(req, res, next)
 })

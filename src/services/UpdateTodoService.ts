@@ -9,9 +9,9 @@ export class UpdateTodoService {
     this.prisma = prismaClient
   }
 
-  public async execute(todoId: string, updateData: UpdateTodoData): Promise<any> {
+  public async execute(todoId: string, userId: string, updateData: UpdateTodoData): Promise<any> {
     const updatedTodo = await this.prisma.todo.update({
-      where: { id: todoId },
+      where: { id: todoId, userId },
       data: updateData,
     })
     

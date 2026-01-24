@@ -1,27 +1,19 @@
 import { NextFunction, Request, Response } from "express";
-import { RegisterCredentials } from "../interfaces/user";
-import { CreateUserService } from "../services/CreateUserService";
+import { AppError } from "../middlewares/errorHandler";
 import { DeleteUserService } from "../services/DeleteUserService";
 
 export class UserController {
-  private createUserService: CreateUserService = new CreateUserService();
   private deleteUserService: DeleteUserService = new DeleteUserService();
   
-  public async getUser(req: Request, res: Response) {
-    throw new Error("Method not implemented.");
-  }
-
-   create = async (req: Request, res: Response, next: NextFunction) => {
+  public async get(req: Request, res: Response, next: NextFunction) {
     try {
-      const registerUser: RegisterCredentials = {
-        email: req.body.email,
-        password: req.body.password,
-        name: req.body.name
+      const user = req.user;
+
+      if (!user) {
+        throw new AppError("UNAUTHORIZED", 401, "User not found");
       }
 
-      const newUser = await this.createUserService.execute(registerUser);
-
-      return res.status(201).json(newUser);
+      return res.status(200).json(user);
     } catch (error) {
       next(error);
     }
@@ -29,23 +21,15 @@ export class UserController {
 
   public async delete(req: Request, res: Response, next: NextFunction) {
     try {
-      const userId = req.params.id;
+      const userId = req.user?.id;
 
       if (!userId) {
-        return res.status(400).json({ message: "User ID is required" });
+        throw new AppError("UNAUTHORIZED", 401, "User not found");
       }
       
       await this.deleteUserService.execute(userId.toString());
 
       return res.status(204).send();
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  public async update(req: Request, res: Response, next: NextFunction) {
-    try {
-      throw new Error("Method not implemented.");
     } catch (error) {
       next(error);
     }

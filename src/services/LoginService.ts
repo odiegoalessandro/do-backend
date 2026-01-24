@@ -25,7 +25,9 @@ export class LoginService {
       throw new AppError("INVALID_CREDENTIALS", 401, "Invalid email or password");
     }
 
-    if (!PasswordHasher.compare(password, user.password)) {
+    const isPasswordValid = await PasswordHasher.compare(password, user.password);
+
+    if (!isPasswordValid) {
       throw new AppError("INVALID_CREDENTIALS", 401, "Invalid email or password");
     }
 

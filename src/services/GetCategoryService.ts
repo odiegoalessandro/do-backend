@@ -8,9 +8,9 @@ export class GetCategoryService {
     this.prisma = prismaClient
   }
 
-  public async execute(categoryId: string): Promise<any> {
+  public async execute(categoryId: string, userId: string): Promise<any> {
     const category = await this.prisma.category.findUnique({
-      where: { id: categoryId }
+      where: { id: categoryId, userId }
     })
     
     return category

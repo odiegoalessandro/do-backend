@@ -1,4 +1,5 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
+import { AppError } from "../middlewares/errorHandler";
 import { CreateCategoryService } from "../services/CreateCategoryService";
 import { DeleteCategoryService } from "../services/DeleteCategoryService";
 import { GetCategoryService } from "../services/GetCategoryService";
@@ -17,55 +18,75 @@ export class CategoryController {
     this.getCategoryService = new GetCategoryService();
   }
 
-  create = async (req: Request, res: Response) => {
+  create = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { name, color, userId } = req.body;
+      const { name, color } = req.body;
+      const user = req.user;
 
-      const category = await this.createCategoryService.execute({ name, color, userId });
+      if (!user) {
+        throw new AppError("UNAUTHORIZED", 401, "User not found");  
+      }
+
+      const category = await this.createCategoryService.execute({ name, color, userId: user.id });
       
       return res.status(201).json(category);
     } catch (error) {
-      throw (error);
+      next(error);
     }
   }
 
-  delete = async (req: Request, res: Response) => {
+  delete = async (req: Request, res: Response, next: NextFunction) => {
     try {
+      const userId = req.user?.id;
       const categoryId: string = String(req.params.id);      
 
-      await this.deleteCategoryService.execute(categoryId);
+      if (!userId || !categoryId) {
+        throw new AppError("BAD_REQUEST", 400, "Category ID are required");  
+      }
+
+      await this.deleteCategoryService.execute(categoryId, userId);
 
       return res.status(204).send();
     } catch (error) {
-      throw (error);
+      next(error);
     }
   }
 
-  update = async (req: Request, res: Response) => {
+  update = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { color, name } = req.body;
       const  categoryId: string = String(req.params.id);      
+      const userId = req.user?.id;
 
-      const updatedCategory = await this.updateCategoryService.execute(categoryId, {
+      if (!userId || !categoryId) {
+        throw new AppError("BAD_REQUEST", 400, "Category ID are required");  
+      }
+
+      const updatedCategory = await this.updateCategoryService.execute(categoryId, userId, {
         name,
         color
       });
     
       return res.status(200).json(updatedCategory);
     } catch (error) {
-      throw (error);
+      next(error);
     }
   }
 
-  get = async (req: Request, res: Response) => {
+  get = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const categoryId: string = String(req.params.id);      
+      const categoryId: string = String(req.params.id);
+      const userId = req.user?.id;
 
-      const category = await this.getCategoryService.execute(categoryId);
+      if (!userId || !categoryId) {
+        throw new AppError("BAD_REQUEST", 400, "Category ID are required");  
+      }
+
+      const category = await this.getCategoryService.execute(categoryId, userId);
     
       return res.status(200).json(category);
     } catch (error) {
-      throw (error);
+      next(error);
     }
   }
 }

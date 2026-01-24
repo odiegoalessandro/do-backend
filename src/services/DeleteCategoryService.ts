@@ -8,9 +8,9 @@ export class DeleteCategoryService {
     this.prisma = prismaClient;
   }
  
-  public async execute(categoryId: string): Promise<void> {
+  public async execute(categoryId: string, userId: string): Promise<void> {
     await this.prisma.category.delete({
-      where: { id: categoryId }
+      where: { id: categoryId, userId  }
     });
   }
 }
