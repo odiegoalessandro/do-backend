@@ -5,8 +5,8 @@
   "main": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsx src/index.ts && tsx src/config/swagger.ts",
-    "dev": "tsx watch src/index.ts && tsx src/config/swagger.ts",
+    "start": "tsx src/index.ts",
+    "dev": "tsx src/config/swagger.ts && tsx watch src/index.ts",
     "db:deploy": "npx prisma migrate deploy && npx prisma generate",
     "swagger": "tsx src/config/swagger.ts"
   },

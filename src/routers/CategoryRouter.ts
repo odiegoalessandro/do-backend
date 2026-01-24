@@ -1,13 +1,79 @@
-import { Router } from "express";
-import { CategoryController } from "../controllers/CategoryController";
-import { createCategorySchema, updateCategorySchema } from "../interfaces/category";
-import { validate } from "../middlewares/validate";
+import { Request, Response, Router } from 'express'
+import { CategoryController } from '../controllers/CategoryController'
 
 export const categoryRouter = Router()
+const controller = new CategoryController()
 
-const categoryController = new CategoryController();
+categoryRouter.post('/categories', (req: Request, res: Response) => {
+  /*
+    #swagger.tags = ['Category']
+    #swagger.summary = 'Criar categoria'
+    #swagger.requestBody = {
+      required: true,
+      content: {
+        "application/json": {
+          schema: { $ref: "#/components/schemas/CreateCategoryInput" }
+        }
+      }
+    }
+    #swagger.responses[201] = {
+      schema: { $ref: "#/components/schemas/Category" }
+    }
+  */
+  return controller.create(req, res)
+})
 
-categoryRouter.get("/:id", categoryController.get);
-categoryRouter.post("/", validate(createCategorySchema), categoryController.create);
-categoryRouter.delete("/:id", categoryController.delete);
-categoryRouter.put("/:id", validate(updateCategorySchema), categoryController.update); 
+categoryRouter.get('/categories/:id', (req: Request, res: Response) => {
+  /*
+    #swagger.tags = ['Category']
+    #swagger.summary = 'Buscar categoria'
+    #swagger.parameters['id'] = {
+      in: 'path',
+      required: true,
+      type: 'string'
+    }
+    #swagger.responses[200] = {
+      schema: { $ref: "#/components/schemas/Category" }
+    }
+  */
+  return controller.get(req, res)
+})
+
+categoryRouter.put('/categories/:id', (req: Request, res: Response) => {
+  /*
+    #swagger.tags = ['Category']
+    #swagger.summary = 'Atualizar categoria'
+    #swagger.parameters['id'] = {
+      in: 'path',
+      required: true,
+      type: 'string'
+    }
+    #swagger.requestBody = {
+      content: {
+        "application/json": {
+          schema: { $ref: "#/components/schemas/UpdateCategoryInput" }
+        }
+      }
+    }
+    #swagger.responses[200] = {
+      schema: { $ref: "#/components/schemas/Category" }
+    }
+  */
+  return controller.update(req, res)
+})
+
+categoryRouter.delete('/categories/:id', (req: Request, res: Response) => {
+  /*
+    #swagger.tags = ['Category']
+    #swagger.summary = 'Deletar categoria'
+    #swagger.parameters['id'] = {
+      in: 'path',
+      required: true,
+      type: 'string'
+    }
+    #swagger.responses[204] = {
+      description: 'Sem conteúdo'
+    }
+  */
+  return controller.delete(req, res)
+})

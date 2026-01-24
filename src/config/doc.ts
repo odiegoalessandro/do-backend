@@ -61,6 +61,35 @@ export const doc = {
         properties: {
           message: { type: 'string' }
         }
+      },
+      Category: {
+        type: 'object',
+        properties: {
+          id: { type: 'string', example: 'uuid' },
+          name: { type: 'string', example: 'Food' },
+          color: { type: 'string', example: '#FF0000' },
+          userId: { type: 'string', example: 'uuid' },
+          createdAt: { type: 'string', format: 'date-time' },
+          updatedAt: { type: 'string', format: 'date-time' }
+        }
+      },
+
+      CreateCategoryInput: {
+        type: 'object',
+        required: ['name', 'color', 'userId'],
+        properties: {
+          name: { type: 'string' },
+          color: { type: 'string' },
+          userId: { type: 'string' }
+        }
+      },
+
+      UpdateCategoryInput: {
+        type: 'object',
+        properties: {
+          name: { type: 'string' },
+          color: { type: 'string' }
+        }
       }
     }
   }
