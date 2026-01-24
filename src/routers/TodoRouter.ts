@@ -18,7 +18,8 @@ todoRouter.post("/", (req: Request, res: Response, next: NextFunction) => {
     }
     #swagger.responses[201] = {
       schema: { $ref: "#/components/schemas/Todo" }
-    }
+    },
+    #swagger.security = [{ "bearerAuth": [] }]
   */
   return controller.create(req, res, next)
 })
@@ -41,7 +42,8 @@ todoRouter.put("/:id", (req: Request, res: Response, next: NextFunction) => {
     }
     #swagger.responses[200] = {
       schema: { $ref: "#/components/schemas/Todo" }
-    }
+    },
+    #swagger.security = [{ "bearerAuth": [] }]
   */
   return controller.update(req, res, next)
 })
@@ -57,7 +59,8 @@ todoRouter.delete("/:id", (req: Request, res: Response, next: NextFunction) => {
     }
     #swagger.responses[204] = {
       description: 'Sem conteúdo'
-    }
+    },
+    #swagger.security = [{ "bearerAuth": [] }]
   */
   return controller.delete(req, res, next)
 })
@@ -81,7 +84,8 @@ todoRouter.get("/category/:categoryId/user/:userId", (req: Request, res: Respons
         type: 'array',
         items: { $ref: "#/components/schemas/Todo" }
       }
-    }
+    },
+    #swagger.security = [{ "bearerAuth": [] }]
   */
   return controller.get(req, res, next)
 })

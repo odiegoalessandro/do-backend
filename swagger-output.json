@@ -21,25 +21,25 @@
         }
       }
     },
-    "/user/": {
-      "post": {
+    "/user/self": {
+      "get": {
         "tags": [
           "User"
         ],
-        "summary": "Criar usuário",
+        "summary": "Obter dados do usuário autenticado",
         "description": "",
         "responses": {
-          "201": {
-            "description": "Created",
+          "200": {
+            "description": "Usuário obtido com sucesso",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "$ref": "#/components/schemas/UserResponse"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "$ref": "#/components/schemas/UserResponse"
                 }
               }
             }
@@ -60,16 +60,11 @@
             }
           }
         },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateUserInput"
-              }
-            }
+        "security": [
+          {
+            "bearerAuth": []
           }
-        }
+        ]
       }
     },
     "/user/{id}": {
@@ -108,29 +103,12 @@
               }
             }
           }
-        }
-      },
-      "put": {
-        "tags": [
-          "User"
-        ],
-        "summary": "Atualizar usuário",
-        "description": "",
-        "parameters": [
+        },
+        "security": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "bearerAuth": []
           }
-        ],
-        "responses": {
-          "501": {
-            "description": "Não implementado"
-          }
-        }
+        ]
       }
     },
     "/category/categories": {
@@ -157,6 +135,11 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -167,6 +150,59 @@
             }
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Listar todas as categorias",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "array"
+                    },
+                    "items": {
+                      "$ref": "#/components/schemas/Category"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "array"
+                    },
+                    "items": {
+                      "$ref": "#/components/schemas/Category"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/category/categories/{id}": {
@@ -202,7 +238,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -237,6 +278,11 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -267,7 +313,12 @@
           "204": {
             "description": "Sem conteúdo"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/todo/": {
@@ -294,6 +345,11 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -340,6 +396,11 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -370,7 +431,12 @@
           "204": {
             "description": "Sem conteúdo"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/todo/category/{categoryId}/user/{userId}": {
@@ -438,7 +504,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/auth/register": {
@@ -1218,6 +1289,31 @@
         },
         "xml": {
           "name": "TokenPair"
+        }
+      },
+      "securitySchemes": {
+        "type": "object",
+        "properties": {
+          "bearerAuth": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "http"
+              },
+              "scheme": {
+                "type": "string",
+                "example": "bearer"
+              },
+              "bearerFormat": {
+                "type": "string",
+                "example": "JWT"
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "securitySchemes"
         }
       }
     }

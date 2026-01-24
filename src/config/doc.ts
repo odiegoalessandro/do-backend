@@ -120,6 +120,13 @@ export const doc = {
             example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
           }
         }
+      },
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT'
+        }
       }
     }
   }

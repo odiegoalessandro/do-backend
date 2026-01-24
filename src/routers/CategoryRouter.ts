@@ -18,7 +18,8 @@ categoryRouter.post('/categories', (req: Request, res: Response, next: NextFunct
     }
     #swagger.responses[201] = {
       schema: { $ref: "#/components/schemas/Category" }
-    }
+    },
+    #swagger.security = [{ "bearerAuth": [] }]
   */
   return controller.create(req, res, next)
 })
@@ -34,7 +35,8 @@ categoryRouter.get('/categories/:id', (req: Request, res: Response, next: NextFu
     }
     #swagger.responses[200] = {
       schema: { $ref: "#/components/schemas/Category" }
-    }
+    },
+    #swagger.security = [{ "bearerAuth": [] }]
   */
   return controller.get(req, res, next)
 })
@@ -57,7 +59,8 @@ categoryRouter.put('/categories/:id', (req: Request, res: Response, next: NextFu
     }
     #swagger.responses[200] = {
       schema: { $ref: "#/components/schemas/Category" }
-    }
+    },
+    #swagger.security = [{ "bearerAuth": [] }]
   */
   return controller.update(req, res, next)
 })
@@ -73,7 +76,23 @@ categoryRouter.delete('/categories/:id', (req: Request, res: Response, next: Nex
     }
     #swagger.responses[204] = {
       description: 'Sem conteúdo'
-    }
+    },
+    #swagger.security = [{ "bearerAuth": [] }]
   */
   return controller.delete(req, res, next)
+})
+
+categoryRouter.get('/categories', (req: Request, res: Response, next: NextFunction) => {
+  /*
+    #swagger.tags = ['Category']
+    #swagger.summary = 'Listar todas as categorias'
+    #swagger.responses[200] = {
+      schema: {
+        type: 'array',
+        items: { $ref: "#/components/schemas/Category" }
+      }
+    },
+    #swagger.security = [{ "bearerAuth": [] }]
+  */
+  return controller.getAll(req, res, next)
 })

@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { AppError } from "../middlewares/errorHandler";
 import { CreateCategoryService } from "../services/CreateCategoryService";
 import { DeleteCategoryService } from "../services/DeleteCategoryService";
+import { GetAllCategoriesService } from "../services/GetAllCategoriesService";
 import { GetCategoryService } from "../services/GetCategoryService";
 import { UpdateCategoryService } from "../services/UpdateCategoryService";
 
@@ -10,12 +11,14 @@ export class CategoryController {
   private deleteCategoryService: DeleteCategoryService;
   private updateCategoryService: UpdateCategoryService;
   private getCategoryService: GetCategoryService;
+  private getAllCategoriesService: GetAllCategoriesService;
 
   constructor() {
     this.createCategoryService = new CreateCategoryService();
     this.deleteCategoryService = new DeleteCategoryService();
     this.updateCategoryService = new UpdateCategoryService();
     this.getCategoryService = new GetCategoryService();
+    this.getAllCategoriesService = new GetAllCategoriesService();
   }
 
   create = async (req: Request, res: Response, next: NextFunction) => {
@@ -85,6 +88,22 @@ export class CategoryController {
       const category = await this.getCategoryService.execute(categoryId, userId);
     
       return res.status(200).json(category);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  getAll = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userId = req.user?.id;
+
+      if (!userId) {
+        throw new AppError("UNAUTHORIZED", 401, "User not found");  
+      }
+
+      const categories = await this.getAllCategoriesService.execute(userId);
+    
+      return res.status(200).json(categories);
     } catch (error) {
       next(error);
     }

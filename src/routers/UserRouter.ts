@@ -14,7 +14,8 @@ userRouter.get("/self", (req: Request, res: Response, next: NextFunction) => {
     }
     #swagger.responses[400] = {
       schema: { $ref: "#/components/schemas/ErrorResponse" }
-    }
+    },
+    #swagger.security = [{ "bearerAuth": [] }]
   */
 
   return controller.get(req, res, next)
@@ -34,7 +35,8 @@ userRouter.delete("/:id", (req: Request, res: Response, next: NextFunction) => {
     }
     #swagger.responses[400] = {
       schema: { $ref: "#/components/schemas/ErrorResponse" }
-    }
+    },
+    #swagger.security = [{ "bearerAuth": [] }]
   */
   return controller.delete(req, res, next)
 })
