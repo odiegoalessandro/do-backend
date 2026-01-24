@@ -102,7 +102,7 @@ export class CategoryController {
       }
 
       const categories = await this.getAllCategoriesService.execute(userId);
-    
+          
       return res.status(200).json(categories);
     } catch (error) {
       next(error);

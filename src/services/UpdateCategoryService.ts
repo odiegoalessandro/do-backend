@@ -9,10 +9,12 @@ export class UpdateCategoryService {
     this.prisma = prismaClient
   }
  
-  public async execute(categoryId: string, userId: string, data: UpdateCategoryData): Promise<void> {
-    await this.prisma.category.update({
+  public async execute(categoryId: string, userId: string, data: UpdateCategoryData) {
+    const updated = await this.prisma.category.update({
       where: { id: categoryId, userId },
       data
     })
+
+    return updated
   }
 }

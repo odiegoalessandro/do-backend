@@ -4,7 +4,24 @@ import { CategoryController } from '../controllers/CategoryController'
 export const categoryRouter = Router()
 const controller = new CategoryController()
 
-categoryRouter.post('/categories', (req: Request, res: Response, next: NextFunction) => {
+
+categoryRouter.get('/all', (req: Request, res: Response, next: NextFunction) => {
+  /*
+    #swagger.tags = ['Category']
+    #swagger.summary = 'Listar todas as categorias'
+    #swagger.responses[200] = {
+      schema: {
+        type: 'array',
+        items: { $ref: "#/components/schemas/Category" }
+      }
+    },
+    #swagger.security = [{ "bearerAuth": [] }]
+  */
+  return controller.getAll(req, res, next)
+})
+
+
+categoryRouter.post('/', (req: Request, res: Response, next: NextFunction) => {
   /*
     #swagger.tags = ['Category']
     #swagger.summary = 'Criar categoria'
@@ -24,7 +41,7 @@ categoryRouter.post('/categories', (req: Request, res: Response, next: NextFunct
   return controller.create(req, res, next)
 })
 
-categoryRouter.get('/categories/:id', (req: Request, res: Response, next: NextFunction) => {
+categoryRouter.get('/:id', (req: Request, res: Response, next: NextFunction) => {
   /*
     #swagger.tags = ['Category']
     #swagger.summary = 'Buscar categoria'
@@ -41,7 +58,7 @@ categoryRouter.get('/categories/:id', (req: Request, res: Response, next: NextFu
   return controller.get(req, res, next)
 })
 
-categoryRouter.put('/categories/:id', (req: Request, res: Response, next: NextFunction) => {
+categoryRouter.put('/:id', (req: Request, res: Response, next: NextFunction) => {
   /*
     #swagger.tags = ['Category']
     #swagger.summary = 'Atualizar categoria'
@@ -65,7 +82,7 @@ categoryRouter.put('/categories/:id', (req: Request, res: Response, next: NextFu
   return controller.update(req, res, next)
 })
 
-categoryRouter.delete('/categories/:id', (req: Request, res: Response, next: NextFunction) => {
+categoryRouter.delete('/:id', (req: Request, res: Response, next: NextFunction) => {
   /*
     #swagger.tags = ['Category']
     #swagger.summary = 'Deletar categoria'
@@ -80,19 +97,4 @@ categoryRouter.delete('/categories/:id', (req: Request, res: Response, next: Nex
     #swagger.security = [{ "bearerAuth": [] }]
   */
   return controller.delete(req, res, next)
-})
-
-categoryRouter.get('/categories', (req: Request, res: Response, next: NextFunction) => {
-  /*
-    #swagger.tags = ['Category']
-    #swagger.summary = 'Listar todas as categorias'
-    #swagger.responses[200] = {
-      schema: {
-        type: 'array',
-        items: { $ref: "#/components/schemas/Category" }
-      }
-    },
-    #swagger.security = [{ "bearerAuth": [] }]
-  */
-  return controller.getAll(req, res, next)
 })

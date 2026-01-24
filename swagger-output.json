@@ -111,46 +111,7 @@
         ]
       }
     },
-    "/category/categories": {
-      "post": {
-        "tags": [
-          "Category"
-        ],
-        "summary": "Criar categoria",
-        "description": "",
-        "responses": {
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Category"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/Category"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateCategoryInput"
-              }
-            }
-          }
-        }
-      },
+    "/category/all": {
       "get": {
         "tags": [
           "Category"
@@ -205,7 +166,48 @@
         ]
       }
     },
-    "/category/categories/{id}": {
+    "/category/": {
+      "post": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Criar categoria",
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCategoryInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/category/{id}": {
       "get": {
         "tags": [
           "Category"

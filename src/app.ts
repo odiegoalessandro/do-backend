@@ -1,3 +1,4 @@
+import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
@@ -8,5 +9,11 @@ export const app = express()
 dotenv.config({ path: process.env.ENVIRONMENT === 'production' ? '.env.prod' : '.env' }) 
 
 app.use(express.json())
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}))
+
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use(express.urlencoded({ extended: true }))

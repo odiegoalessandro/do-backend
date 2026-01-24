@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express"
 import { AppError } from "../middlewares/errorHandler"
 import { CreateTodoService } from "../services/CreateTodoService"
 import { DeleteTodoService } from "../services/DeleteTodoService"
+import { GetAllTodosService } from "../services/GetAllTodosService"
 import { GetTodosByCategoryService } from "../services/GetTodosByCategoyService"
 import { UpdateTodoService } from "../services/UpdateTodoService"
 
@@ -10,6 +11,7 @@ export class TodoController {
   private createTodoService: CreateTodoService = new CreateTodoService()
   private updateTodoService: UpdateTodoService = new UpdateTodoService()
   private deleteTodoService: DeleteTodoService = new DeleteTodoService()
+  private getAllTodosService: GetAllTodosService = new GetAllTodosService()
 
   create = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -80,6 +82,22 @@ export class TodoController {
       }
 
       const todos = await this.getTodosByCategoryService.execute(categoryId, userId)
+
+      return res.status(200).json(todos)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  getAll = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userId = req.user?.id
+
+      if (!userId) {
+        throw new AppError("UNAUTHORIZED", 401, "User not found")
+      }
+
+      const todos = await this.getAllTodosService.execute(userId)
 
       return res.status(200).json(todos)
     } catch (error) {

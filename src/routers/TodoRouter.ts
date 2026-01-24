@@ -24,10 +24,10 @@ todoRouter.post("/", (req: Request, res: Response, next: NextFunction) => {
   return controller.create(req, res, next)
 })
 
-todoRouter.put("/:id", (req: Request, res: Response, next: NextFunction) => {
+todoRouter.patch("/:id", (req: Request, res: Response, next: NextFunction) => {
   /*
     #swagger.tags = ['Todo']
-    #swagger.summary = 'Atualizar todo'
+    #swagger.summary = 'Atualizar status'
     #swagger.parameters['id'] = {
       in: 'path',
       required: true,
@@ -88,4 +88,23 @@ todoRouter.get("/category/:categoryId/user/:userId", (req: Request, res: Respons
     #swagger.security = [{ "bearerAuth": [] }]
   */
   return controller.get(req, res, next)
+})
+
+todoRouter.get("/all", (req: Request, res: Response, next: NextFunction) => {
+  /*
+    #swagger.tags = ['Todo']
+    #swagger.summary = 'Listar todos por usuário'
+      in: 'path',
+      required: true,
+      type: 'string'
+    }
+    #swagger.responses[200] = {
+      schema: {
+        type: 'array',
+        items: { $ref: "#/components/schemas/Todo" }
+      }
+    },
+    #swagger.security = [{ "bearerAuth": [] }]
+  */
+  return controller.getAll(req, res, next)
 })
