@@ -24,10 +24,10 @@ todoRouter.post("/", (req: Request, res: Response, next: NextFunction) => {
   return controller.create(req, res, next)
 })
 
-todoRouter.patch("/:id", (req: Request, res: Response, next: NextFunction) => {
+todoRouter.patch("/update/:id", (req: Request, res: Response, next: NextFunction) => {
   /*
     #swagger.tags = ['Todo']
-    #swagger.summary = 'Atualizar status'
+    #swagger.summary = 'Atualizar status  '
     #swagger.parameters['id'] = {
       in: 'path',
       required: true,
@@ -48,7 +48,7 @@ todoRouter.patch("/:id", (req: Request, res: Response, next: NextFunction) => {
   return controller.update(req, res, next)
 })
 
-todoRouter.delete("/:id", (req: Request, res: Response, next: NextFunction) => {
+todoRouter.delete("/delete/:id", (req: Request, res: Response, next: NextFunction) => {
   /*
     #swagger.tags = ['Todo']
     #swagger.summary = 'Deletar todo'

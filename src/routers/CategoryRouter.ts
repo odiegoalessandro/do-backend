@@ -58,7 +58,7 @@ categoryRouter.get('/:id', (req: Request, res: Response, next: NextFunction) => 
   return controller.get(req, res, next)
 })
 
-categoryRouter.put('/:id', (req: Request, res: Response, next: NextFunction) => {
+categoryRouter.patch('/update/:id', (req: Request, res: Response, next: NextFunction) => {
   /*
     #swagger.tags = ['Category']
     #swagger.summary = 'Atualizar categoria'
@@ -82,7 +82,7 @@ categoryRouter.put('/:id', (req: Request, res: Response, next: NextFunction) => 
   return controller.update(req, res, next)
 })
 
-categoryRouter.delete('/:id', (req: Request, res: Response, next: NextFunction) => {
+categoryRouter.delete('/delete/:id', (req: Request, res: Response, next: NextFunction) => {
   /*
     #swagger.tags = ['Category']
     #swagger.summary = 'Deletar categoria'

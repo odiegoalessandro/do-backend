@@ -44,6 +44,8 @@ export class TodoController {
       const todoId = String(req.params.id)
       const updateData = {
         status: req.body.status,
+        description: req.body.description,
+        categoryId: req.body.categoryId
       }
 
       const updatedTodo = await this.updateTodoService.execute(todoId, userId, updateData)

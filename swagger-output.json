@@ -246,7 +246,9 @@
             "bearerAuth": []
           }
         ]
-      },
+      }
+    },
+    "/category/update/{id}": {
       "put": {
         "tags": [
           "Category"
@@ -294,7 +296,9 @@
             }
           }
         }
-      },
+      }
+    },
+    "/category/delete/{id}": {
       "delete": {
         "tags": [
           "Category"
@@ -365,11 +369,11 @@
       }
     },
     "/todo/{id}": {
-      "put": {
+      "patch": {
         "tags": [
           "Todo"
         ],
-        "summary": "Atualizar todo",
+        "summary": "Atualizar status ",
         "description": "",
         "parameters": [
           {
@@ -466,6 +470,61 @@
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "array"
+                    },
+                    "items": {
+                      "$ref": "#/components/schemas/Todo"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "array"
+                    },
+                    "items": {
+                      "$ref": "#/components/schemas/Todo"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/todo/all": {
+      "get": {
+        "tags": [
+          "Todo"
+        ],
+        "summary": "Listar todos por usuário",
+        "description": "",
         "responses": {
           "200": {
             "description": "OK",
