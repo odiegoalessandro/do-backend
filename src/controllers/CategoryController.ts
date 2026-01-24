@@ -24,7 +24,6 @@ export class CategoryController {
       const category = await this.createCategoryService.execute({ name, color, userId });
       
       return res.status(201).json(category);
-
     } catch (error) {
       throw (error);
     }

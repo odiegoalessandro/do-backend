@@ -10,14 +10,14 @@ export class CreateCategoryService {
     this.prisma = prismaClient
   }
  
-  public async execute({ name, color, userId }: CreateCategoryData): Promise<void> {
+  public async execute({ name, color, userId }: CreateCategoryData) {
     const newCategory: CategoryCreateInput = {
       name,
       user: { connect: { id: userId } },
       color: color ? color : this.getRandomColor()
     }
 
-    await this.prisma.category.create({
+    return await this.prisma.category.create({
       data: newCategory
     })
   }
