@@ -1,14 +1,19 @@
-FROM node:slim
+FROM node:20-slim
 
-RUN apt-get update -y \
-&& apt-get install -y openssl
+RUN apt-get update -y && apt-get install -y openssl
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY package.json package-lock.json ./
+COPY prisma ./prisma
 
 RUN npm ci
 
 COPY . .
 
-CMD ["sh", "-c", "npm run db:deploy && npm run dev"]
+RUN npx prisma generate
+RUN npm run build
+
+EXPOSE 3333
+
+CMD ["node", "dist/server.js"]
